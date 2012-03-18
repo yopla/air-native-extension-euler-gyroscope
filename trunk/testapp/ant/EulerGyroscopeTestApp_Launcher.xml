@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="EulerGyroscopeTest - Build" basedir="." default="00. [compile package ipa for debug]">
+
+	<!-- <fdt.loadProjectProperties />  -->
+
+	<!-- PROJECT SETTINGS -->
+	<property file="build.properties" />
+	<property file="${user.name}.properties" />
+
+	
+
+	<target name="00. [compile package ipa for debug]">
+		<input message="certificate password:" addproperty="certPassword" />
+		
+		<antcall target="99. [Increase Build]" />	
+		<antcall target="03. [compile debug]" />	
+		<antcall target="06. [package debug]" />
+	</target>
+	
+	<target name="00. [compile package ipa for release]">
+			<input message="certificate password:" addproperty="certPassword" />
+			
+			<antcall target="99. [Increase Build]" />	
+			<antcall target="03. [compile release]" />	
+			<antcall target="06. [package release]" />	
+		</target>
+	
+
+	<target name="03. [compile debug]">
+		<fdt.launch.application projectname="EulerGyroscopeTestApp" mainclass="../src/de/ketzler/gyroscopetest/GyroscopeTest.mxml" debug="true"  
+		    target="${deploy.dir}/${deploy.swf}" startswf="false" swflauncher=""
+		
+			 compilerarguments="
+			-externs EulerGyroscope
+			-define=CONFIG::debug,true 
+			--compiler.debug=true 
+			-verbose-stacktraces=true 
+			-target-player=14 
+			-swf-version=14 
+			-default-size=1024,768 
+			-default-frame-rate=30 
+			+configname=airmobile"
+					   
+		
+		/>
+	</target>
+	
+	<target name="03. [compile release]">
+		<fdt.launch.application projectname="EulerGyroscopeTestApp" mainclass="../src/de/ketzler/gyroscopetest/GyroscopeTest.mxml" debug="false"  
+			    target="${deploy.dir}/${deploy.swf}" startswf="false" swflauncher=""
+				 compilerarguments="
+			-externs EulerGyroscope
+			
+			-define=CONFIG::debug,false 
+			--compiler.debug=false 
+			-verbose-stacktraces=false 
+			-target-player=14 
+			-swf-version=14 
+			-default-size=1024,768 
+			-default-frame-rate=30 
+			+configname=airmobile"
+						   
+			
+			/>
+		</target>
+	
+	<target name="04. [start iPad]">
+		<!-- only on windows 
+		<exec executable="taskkill" spawn="true">
+								    <arg value="/IM"/> 
+								    <arg value="adl.exe"/> 
+								  </exec>-->
+		
+		<echo message="${sdk.dir}${adl}" />
+		<exec executable="${sdk.dir}${adl}" spawn="true">
+		    <arg value="-profile"/> 
+		    <arg value="mobileDevice"/> 
+		    <arg value="-screensize"/>
+		    <arg value="768x1004:768x1024"/>
+		    <arg value="${application.descriptor}"/>
+		    <arg value="${deploy.dir}"/>
+		  </exec>
+	</target>
+	
+	<target name="04. [start iPhone]">
+		<!-- only on windows
+			<exec executable="taskkill" spawn="true">
+									    <arg value="/IM"/> 
+									    <arg value="adl.exe"/> 
+									  </exec>
+			-->
+			<echo message="${sdk.dir}${adl}" />
+			<exec executable="${sdk.dir}${adl}" spawn="true">
+			    <arg value="-profile"/> 
+			    <arg value="mobileDevice"/> 
+			    <arg value="-screensize"/>
+				<!-- 320 x 460
+
+320 x 480 -->
+			    <arg value="320x460:320x480"/>
+			    <arg value="${application.descriptor}"/>
+			    <arg value="${deploy.dir}"/>
+			  </exec>
+		</target>
+	
+	<target name="06. [package debug]">
+		<mkdir dir="${publish.dir}"/>
+		
+		<java jar="${sdk.dir}/${adt}" fork="true" failonerror="true" dir="${deploy.dir}/">
+			<arg value="-package" />
+
+			<arg value="-target" />
+
+			<arg value="ipa-debug" />
+			
+			
+			
+			<arg value="-connect" />
+			<arg value="10.0.2.1" />
+			
+			
+			<arg value="-provisioning-profile" />
+			<arg value="${provisioning.profile}" />
+
+			<!-- NATIVE_SIGNING_OPTIONS -->
+			<arg value="-storetype" />
+			<arg value="pkcs12" />
+			<arg value="-keystore" />
+			<arg value="${ios.certificate}" />
+			<arg value="-storepass" />
+			<arg value="${certPassword}" />
+
+			<!-- Name Of File To Create-->
+			<arg value="${publish.dir}/${publish.ipa}" />
+
+			<!-- App Descriptor-->
+			<arg value="${application.descriptor.name}" />
+
+			
+			<!--<arg value="Icon.png" />
+			<arg value="Default*" />
+			<arg value="iTunesArtwork.png" />-->
+			 
+			
+			
+			<arg value="-C" />
+			<arg value="${deploy.dir}/" />
+			<arg value="${deploy.swf}" />
+
+			<arg value="-extdir" />
+			<arg value="./extensions-debug" />
+
+			<!-- add more assets here -->
+		</java>
+	</target>
+	
+	
+	
+	<target name="06. [package release]">
+			<mkdir dir="${publish.dir}"/>
+			
+			<java jar="${sdk.dir}/${adt}" fork="true" failonerror="true" dir="${deploy.dir}/">
+				<arg value="-package" />
+
+				<arg value="-target" />
+
+				<arg value="ipa-ad-hoc" />
+				
+				
+				
+				
+				
+				<arg value="-provisioning-profile" />
+				<arg value="${provisioning.profile}" />
+
+				<!-- NATIVE_SIGNING_OPTIONS -->
+				<arg value="-storetype" />
+				<arg value="pkcs12" />
+				<arg value="-keystore" />
+				<arg value="${ios.certificate}" />
+				<arg value="-storepass" />
+				<arg value="${certPassword}" />
+
+				<!-- Name Of File To Create-->
+				<arg value="${publish.dir}/${publish.ipa}" />
+
+				<!-- App Descriptor-->
+				<arg value="${application.descriptor.name}" />
+
+				
+				<!--<arg value="Icon.png" />
+				<arg value="Default*" />
+				<arg value="iTunesArtwork.png" />-->
+				 
+				
+				
+				<arg value="-C" />
+				<arg value="${deploy.dir}/" />
+				<arg value="${deploy.swf}" />
+
+				<arg value="-extdir" />
+				<arg value="./extensions-release" />
+
+				<!-- add more assets here -->
+			</java>
+		</target>
+	
+	
+	
+	
+	<target name="99. [Increase Build]">
+			<buildnumber/>
+				<copy file="${deploy.dir}/EulerGyroscopeTest-app.template.xml"
+				tofile="${application.descriptor}"
+				filtering="yes" overwrite="yes">
+				<filterset>
+				    <filter token="buildnumber" value="${build.number}"/>
+				</filterset>
+				</copy>
+		
+		</target>
+		
+		
+	
+	
+	
+		
+	
+
+</project>

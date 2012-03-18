@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+                       xmlns:s="library://ns.adobe.com/flex/spark"
+                       xmlns:mx="library://ns.adobe.com/flex/mx"
+                       
+                       applicationComplete="handleComplete()">
+	<fx:Script>
+		<![CDATA[
+			import de.ketzler.nativeextension.EulerGyroscopeEvent;
+			import de.ketzler.nativeextension.EulerGyroscope;
+
+			private var gyro : EulerGyroscope;
+
+			
+			private function handleComplete() : void {
+				
+				gyro = new EulerGyroscope();
+				gyro.setRequestedUpdateInterval(30);
+				gyro.addEventListener(EulerGyroscopeEvent.UPDATE, handleUpdate)
+				
+			}
+
+			private function handleUpdate(event : EulerGyroscopeEvent) : void {
+				yawText.text = event.yaw.toString();
+				pitchText.text = event.pitch.toString();
+				rollText.text = event.roll.toString();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<!-- Launch your application by right clicking within this class and select Debug As > FDT SWF Application -->
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup>
+		<s:HGroup>
+			<s:Label text="Yaw: "/>
+			<s:Label id="yawText"/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Label text="Roll"/>
+			<s:Label id="rollText"/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Label text="Pitch"/>
+			<s:Label id="pitchText"/>
+		</s:HGroup>
+	</s:VGroup>
+	
+	
+</s:Application>

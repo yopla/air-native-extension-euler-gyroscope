@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="EulerGyroscopeExtension - Build" basedir="." default="00. [package debug]">
+
+
+	<!-- PROJECT SETTINGS -->
+	<property file="build.properties" />
+	<property file="${user.name}.properties" />
+
+	<!-- START THE PARTY -->
+	<target name="00. [package release]">
+		
+		<antcall target="99. unzip and copy" />	
+		<antcall target="06. [package release]" />
+		<unzip src="${publish.dir}/release-out/EulerGyroscope.ane" dest="${publish.dir}/release-out/unzipped"/>
+		
+		<copy file="${publish.dir}/EulerGyroscope.swc" tofile="/Users/christoph/Documents/_Projects/AIR Native Extension EulerGyroscope/WorkspaceTestApp/lib/EulerGyroscope.swc" />
+		<copy file="${publish.dir}/release-out/EulerGyroscope.ane" tofile="/Users/christoph/Documents/_Projects/AIR Native Extension EulerGyroscope/WorkspaceTestApp/bin/extensions-release/EulerGyroscope.ane" />
+	</target>
+	
+	
+	<target name="00. [package debug]">
+		
+		<antcall target="99. unzip and copy" />	
+		<antcall target="06. [package debug]" />
+		<unzip src="${publish.dir}/debug-out/EulerGyroscope.ane" dest="${publish.dir}/debug-out/unzipped"/>
+		
+		<copy file="${publish.dir}/EulerGyroscope.swc" tofile="/Users/christoph/Documents/_Projects/AIR Native Extension EulerGyroscope/WorkspaceTestApp/lib/EulerGyroscope.swc" />
+		<copy file="${publish.dir}/debug-out/EulerGyroscope.ane" tofile="/Users/christoph/Documents/_Projects/AIR Native Extension EulerGyroscope/WorkspaceTestApp/bin/extensions-debug/EulerGyroscope.ane" />
+	</target>
+
+
+	<target name="99. unzip and copy">
+		<unzip src="${publish.dir}/EulerGyroscope.swc" dest="${publish.dir}/unzipped"/>
+		<copy file="${publish.dir}/unzipped/library.swf" tofile="${publish.dir}/release/library.swf" />
+		<copy file="${publish.dir}/unzipped/library.swf" tofile="${publish.dir}/debug/library.swf" />
+	</target>
+	
+	
+	
+	<target name="06. [package release]">
+		
+		<java jar="${sdk.dir}/${adt}" fork="true" failonerror="true" dir="${publish.dir}/">
+			<arg value="-package" />
+
+			<arg value="-target" />
+			<arg value="ane" />
+			
+			<arg value="release-out/EulerGyroscope.ane" />
+
+			
+			
+			
+			<arg value="extension.xml" />
+			
+
+			<arg value="-swc" />
+			<arg value="EulerGyroscope.swc" />
+			
+			<arg value="-platform" />
+			<arg value="iPhone-ARM" />
+			
+			<arg value="-platformoptions" />
+			<arg value="platformoptions.xml" />
+
+			<!-- Files To Package -->
+
+			<arg value="-C" />
+			<arg value="release" />
+			<arg value="." />
+
+			<!-- add more assets here -->
+		</java>
+	</target>
+	<target name="06. [package debug]">
+		
+		<java jar="${sdk.dir}/${adt}" fork="true" failonerror="true" dir="${publish.dir}/">
+			<arg value="-package" />
+
+			<arg value="-target" />
+			<arg value="ane" />
+			
+			<arg value="debug-out/EulerGyroscope.ane" />
+			
+			<arg value="extension.xml" />
+
+			
+			<arg value="-swc" />
+			<arg value="EulerGyroscope.swc" />
+			
+			<arg value="-platform" />
+			<arg value="iPhone-ARM" />
+			
+			<arg value="-platformoptions" />
+			<arg value="platformoptions.xml" />
+			
+
+			<!-- Files To Package -->
+
+			<arg value="-C" />
+			<arg value="debug" />
+			<arg value="." />
+
+			<!-- add more assets here -->
+		</java>
+	</target>
+	
+	
+
+</project>

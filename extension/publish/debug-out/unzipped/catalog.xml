@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.6.0" build="23201" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="_30469328a25ee7c7d8632f87ce5dca5ec320a6329fecaa7a43745a55299f660b_flash_display_Sprite" mod="1331928783546" signatureChecksum="1404336715" >
+        <def id="_30469328a25ee7c7d8632f87ce5dca5ec320a6329fecaa7a43745a55299f660b_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+      </script>
+      <script name="de/ketzler/nativeextension/EulerGyroscopeIntervalValue" mod="1331324189000" signatureChecksum="2267307238" >
+        <def id="de.ketzler.nativeextension:EulerGyroscopeIntervalValue" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="Object" type="i" /> 
+      </script>
+      <script name="de/ketzler/nativeextension/EulerGyroscope" mod="1331926997000" signatureChecksum="1774030167" >
+        <def id="de.ketzler.nativeextension:EulerGyroscope" /> 
+        <dep id="de.ketzler.nativeextension:EulerGyroscopeIntervalValue" type="e" /> 
+        <dep id="flash.utils:Timer" type="e" /> 
+        <dep id="flash.events:StatusEvent" type="e" /> 
+        <dep id="flash.events:TimerEvent" type="e" /> 
+        <dep id="flash.external:ExtensionContext" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="de.ketzler.nativeextension:EulerGyroscopeEvent" type="e" /> 
+        <dep id="flash.utils:Timer" type="s" /> 
+        <dep id="flash.events:StatusEvent" type="s" /> 
+        <dep id="flash.events:TimerEvent" type="s" /> 
+        <dep id="flash.external:ExtensionContext" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+      </script>
+      <script name="de/ketzler/nativeextension/EulerGyroscopeEvent" mod="1331324190000" signatureChecksum="1067085436" >
+        <def id="de.ketzler.nativeextension:EulerGyroscopeEvent" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="i" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="72a65feeaa0d95f1c8f17b441880a17e8d36126a19c8daa83a86cd8743063dd4"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+  </files>
+</swc>

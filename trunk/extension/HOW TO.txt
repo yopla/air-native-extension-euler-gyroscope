@@ -1,0 +1,5 @@
+HOW To:
+
+- Build .swc library (Release or Debug) with the FDT Buttons
+
+- start ANT-Task - [package debug] or [package release]

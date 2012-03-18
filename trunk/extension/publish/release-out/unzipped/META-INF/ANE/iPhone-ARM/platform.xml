@@ -1,0 +1,10 @@
+<platform xmlns="http://ns.adobe.com/air/extension/3.1">
+    <sdkVersion>4.3</sdkVersion>
+    <linkerOptions>
+	    <!-- to use the CoreMotion framework -->
+        <option>-framework CoreMotion</option>
+        <!-- <option>-ios_version_min 4.2</option> -->
+		<!-- to link with the libiconv.dylib -->
+        <!-- <option>-liconv</option> -->
+    </linkerOptions>
+</platform>

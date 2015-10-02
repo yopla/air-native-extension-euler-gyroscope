@@ -1,0 +1,1 @@
+A native extension to get euler angles from the iDevice's gyroscope
